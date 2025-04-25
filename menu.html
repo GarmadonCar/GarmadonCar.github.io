@@ -32,7 +32,6 @@
         #container-left p, #container-right p {
             white-space: normal;
         }
-        /* Ensure all task images are square and stretched */
         .task-img {
             width: 5vw;
             height: 5vw;
@@ -141,26 +140,10 @@
             "container-right-top","container-right-mid","container-right-bot"
         ];
 
-        // Storage for generic images
-        let genericImages = [];
+        // go go linux gadget
+        let genericImages = ["images/generic-images/07EC9FCB-1CB9-4010-89E2-3628D8A752B6.webp","images/generic-images/1743823818351-632.webp","images/generic-images/agoodnightout.png","images/generic-images/Bearorito_Applepitolirotito.webp","images/generic-images/BEGALINO_KOTOBANANINO.webp","images/generic-images/bigmans.png","images/generic-images/bikeindasnow.png","images/generic-images/blasphemy.png","images/generic-images/Bombardiere.webp","images/generic-images/Bombardiro_Crocodilo.webp","images/generic-images/Bomborito_bandito.webp","images/generic-images/Boneca_Ambalabu_.webp","images/generic-images/Brr_Brr_Patapim.webp","images/generic-images/Burbaloni.webp","images/generic-images/cardoittoem.png","images/generic-images/cargar.png","images/generic-images/Chefcrabracadabra.webp","images/generic-images/chickenjokey.png","images/generic-images/chillguy.png","images/generic-images/ChimpanziniBananini.webp","images/generic-images/cigarrr.png","images/generic-images/Coccodrilli_Faerini.webp","images/generic-images/D28146d6115611f0a74582963e3c41a8_1.webp","images/generic-images/deadbird.png","images/generic-images/donut.png","images/generic-images/Frigo_Camelo.webp","images/generic-images/Frulli_Frulla_HD.webp","images/generic-images/Gambero_Spero.webp","images/generic-images/gaming.png","images/generic-images/garcar.png","images/generic-images/gargar.png","images/generic-images/gateway.png","images/generic-images/gi hun.png","images/generic-images/Giraffa_Celeste2.webp","images/generic-images/goulashsoup.png","images/generic-images/hardtimescreatestrongmen.png","images/generic-images/hermetsnow.png","images/generic-images/hotbabe.png","images/generic-images/joever.png","images/generic-images/kaiindabattle.png","images/generic-images/kaiondaswing.png","images/generic-images/kaiunderdaslide.png","images/generic-images/linux.png","images/generic-images/lionsatatopitsrock.png","images/generic-images/Lirili_rili_ralila.webp","images/generic-images/moneybob.png","images/generic-images/munashinha.png","images/generic-images/munasinfinger.png","images/generic-images/orionbeer.png","images/generic-images/Pararell_Bararell.webp","images/generic-images/phillipo.png","images/generic-images/Piccione_Macchina.webp","images/generic-images/pinkmonsterbin.png","images/generic-images/pulsefromrainbowsixsiege.png","images/generic-images/Quesadilla_Crocodilla.webp","images/generic-images/ratthrone.png","images/generic-images/resonableportions.png","images/generic-images/robertoppenhiemr.png","images/generic-images/rockbreakfast.png","images/generic-images/roytpose.png","images/generic-images/Rugginato_LupoGT.webp","images/generic-images/Saturno_Saturnita.webp","images/generic-images/sheldo.png","images/generic-images/socialengineering.png","images/generic-images/Tarantula_Hawk_Tuah.webp","images/generic-images/Tractor.webp","images/generic-images/Tralalero_tralala.webp","images/generic-images/Tric_Trac_Baraboom.webp","images/generic-images/Trippi_Troppi2.webp","images/generic-images/true.png","images/generic-images/walkinhere.png","images/generic-images/___________________.webp","images/generic-images/whatscookin.png","images/generic-images/wheel.png"];
 
-        // Fetch and parse directory listing of generic images
-        async function loadGenericImages() {
-            try {
-                const resp = await fetch('/images/generic-images/');
-                const html = await resp.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                genericImages = Array.from(doc.querySelectorAll('a'))
-                    .map(a => a.getAttribute('href'))
-                    .filter(name => /\.(jpe?g|png|gif|bmp|webp)$/i.test(name))
-                    .map(name => `/images/generic-images/${name}`);
-            } catch (err) {
-                console.error('Failed to load generic images:', err);
-            }
-        }
 
-        // Simple hash to map a string code to an integer
         function hashStringToInt(str) {
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
@@ -188,7 +171,7 @@
                     idEl.textContent = taskId;
                     descEl.textContent = taskDesc;
                     if (genericImages.length) {
-                        const imgIndex = hashStringToInt(taskId) %enericImages.length;
+                        const imgIndex = hashStringToInt(taskId) % genericImages.length;
                         imgEl.src = genericImages[imgIndex];
                     }
                 } else {
@@ -211,7 +194,6 @@
 
         // Initialize: load images then render
         (async () => {
-            await loadGenericImages();
             renderTasks();
         })();
     </script>
