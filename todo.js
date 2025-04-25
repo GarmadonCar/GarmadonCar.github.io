@@ -28,8 +28,8 @@ function getTasks() {
 
   var i = 0;
   while (index < tasklist.length) {
-    tasks[i] = new Array(2);
-    tasks[i][0] = tasklist.substring(index, index + 2);
+    tasks[i] = [];
+    tasks[i][0] = tasklist.substring(index, index + 3);
     tasks[i][1] = getTask(tasks[i][0]);
 
     index += (5 + tasks[i][1].length);
