@@ -22,15 +22,18 @@ function setTask(id, description) {
 }
 
 // returns Array of all id-description tuples
-
 function getTasks() {
-  let tasks = [];
-  let parts = tasklist.split("ඞ");
+  var index = 0;
+  var tasks = [];
 
-  for (let i = 0; i < parts.length - 1; i += 2) {
-    let id = parts[i];
-    let description = parts[i + 1];
-    tasks.push([id, description]);
+  var i = 0;
+  while (index < tasklist.length) {
+    tasks[i] = new Array(2);
+    tasks[i][0] = tasklist.substring(index, index + 2);
+    tasks[i][1] = getTask(tasks[i][0]);
+
+    index += (5 + tasks[i][1].length;
+    i++;
   }
 
   return tasks;
