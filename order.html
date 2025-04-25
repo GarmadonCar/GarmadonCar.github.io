@@ -159,12 +159,7 @@
                 cooked();
             }
 
-            var music = new Audio('sounds/soul-and-mind.mp3'); 
-            music.addEventListener('ended', function() {
-                this.currentTime = 0;
-                this.play();
-            }, false);
-            music.play();
+            ambiance()
 
             await fadeFromBlack(2000);
             
@@ -214,7 +209,6 @@
                 img.style="width:25%;top:17.2%;"
                 document.querySelector(".align-overlay").appendChild(img);
 
-                music.pause()
                 var trauma = new Audio('sounds/springinmystep.mp3'); 
                 trauma.addEventListener('ended', function() {
                     this.currentTime = 0;
