@@ -32,7 +32,7 @@ function getTasks() {
     tasks[i][0] = tasklist.substring(index, index + 2);
     tasks[i][1] = getTask(tasks[i][0]);
 
-    index += (5 + tasks[i][1].length;
+    index += (5 + tasks[i][1].length);
     i++;
   }
 
