@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BIG BOY TODO APP!!!</title>
+        <link rel="stylesheet" href="bigboy.css">
+        <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+
+                overflow: hidden; /* for testing */
+            }
+            .align-wrapper {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 1920 / 1080; /* Adjust to match your background image */
+                background-image: url("images/bathroom-outside.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                overflow: hidden;
+            }
+
+            /* Container for all overlays */
+            .align-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .overlay-img {
+                position: absolute;
+                top: 18.1%;  
+                left: 30%;  
+                width: 30%;
+                height: auto;
+            }
+            .fade-out {
+                opacity: 0;
+                transition: opacity 3s ease-out;
+            }
+            .fade-in {
+                opacity: 1;
+            }
+
+            .victory-img {
+                position: absolute;
+                top: 40%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;                     
+                transition: opacity 1s ease-in;  
+                width: 100%;                  
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="align-wrapper">
+            <div class="align-overlay">
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="text/javascript" src="bigboy.js"></script>
+        <script type="text/javascript" src="generic-conversation/explainer-gc.js"></script>
+        <script type="module">
+
+            ambiance()
+
+            await fadeFromBlack(2000);
+
+            await yap("[Ugh… I had too many tasks to eat,]")
+            await yap("[Gotta empty my bowels before i turn the place into brown town!]")
+            //console.log("BEFORE");
+            await yap("(You grasp the handle of the toilet door with urgency.)")
+            await sleep(500);
+
+            var isRafi = Math.random() < 0.2;
+            isRafi = true;
+            
+            if(isRafi) {
+                const doorStruggle = new Audio("sounds/door-struggle.mp3");
+                doorStruggle.play();
+                await sleep(500)
+                await yap("(The bathroom is occupied...)")
+                const flush = new Audio("sounds/flush.mp3");
+                flush.play();
+                await sleep(5000)
+                const doorEasy = new Audio("sounds/door-easy.mp3");
+                doorEasy.play();
+                await sleep(1500)
+                const img = document.createElement("img");
+                img.src = "images/whoisthis.png";
+                img.className = "overlay-img";
+
+                document.querySelector(".align-overlay").appendChild(img);
+
+                await yap("Rafi: Oh... kept you waiting.")
+                await yap("Rafi: Heh.")
+                await yap("Rafi: As they say, angels are only free in heaven.")
+                await yap("Rafi: Might wanna hold your nose,")
+                await yap("Rafi: That shit was more action packed than Alvin and the Chipmunks: Shipwrecked, heh heh heh...")
+                await yap("Rafi: In that case, I guess you could call this Rafi and the Shitchunks: Shitwrecked. ")
+                await yap("Rafi: See you 'round, mate.")
+                // Fade out the image
+                img.classList.add('fade-out');
+                await sleep(1000);
+                await sleep(1000)
+                await yap("(You enter the bathroom.)")
+                fadeToBlack(1000);
+                // Change background to the bathroom inside
+                await sleep(1)
+                document.querySelector(".align-wrapper").style.backgroundImage = "url('images/bathroom-inside.png')";
+                await fadeFromBlack(2000);
+                await yap("(You are in the bathroom.)")
+                fadeToBlack(5000);
+                await sleep(3000)
+                flush.currentTime = 0
+                flush.play()
+                await sleep(2000)
+                fadeFromBlack(3000)
+               const victory = new Audio("sounds/victory.mp3");
+                victory.play();
+                await sleep(4000);
+                const victoryimg = document.createElement("img");
+                victoryimg.src = "images/victory.png";
+                victoryimg.classList.add("victory-img");
+                document.querySelector(".align-overlay").appendChild(victoryimg);
+
+                // tiny timeout so the browser registers the starting opacity=0 first
+                setTimeout(() => {
+                victoryimg.style.opacity = '1';  // kicks off the fade-in
+                }, 20);
+
+                // after your 4s wait, fade back out:
+                await sleep(4000);
+                victoryimg.style.opacity = '0';
+
+                // remove it after the transition completes:
+                victoryimg.addEventListener("transitionend", () => {
+                victoryimg.remove();
+                });
+            }
+            fadeToBlack(2000);
+            await sleep(1);
+            document.querySelector(".align-wrapper").style.backgroundImage = "url('images/bathroom-outside.jpg')";
+            fadeFromBlack(2000);
+
+
+            await yap("[At last, no longer am I to play the fool,]")
+            await yap("[for down this drain laden with moisture now flows my very own stool, ]")
+            await yap("[ I pray thou hearest mine wishes, ]")
+            await yap("[for now I may continue to consume this FINE establishment's mighty dishes.]")
+            await yap("(Your bowels have been emptied.)")
+            await yap("(Thou solemnly wave the silver throne farewell.)")
+
+            window.location.href = ("table.html");
+        </script>
+
+    </body>
+
+</html>
