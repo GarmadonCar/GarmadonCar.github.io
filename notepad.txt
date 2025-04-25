@@ -5,7 +5,7 @@ String.prototype.replaceAt = function(startIndex, endIndex, replacement) {
 }
 
 function saveTasks(){
-  localStorage.getItem('tasks') = tasklist;
+  localStorage.setItem('tasks', tasklist);
 }
 
 // returns nill
