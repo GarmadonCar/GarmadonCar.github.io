@@ -21,7 +21,7 @@
         .hover-fade:hover {
             opacity: 1;
         }
-        #id, #description {
+        .task-id, .task-desc {
             margin: 2px;
         }
         #container-left, #container-right {
@@ -51,20 +51,72 @@
 
     <!-- Task Containers -->
     <div id="container-left" style="position:absolute; top:20%; left:20%; border:1px solid black; display:flex; flex-direction:column;">
-        <div id="container-left-top" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
-        <div id="container-left-mid" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
-        <div id="container-left-bot" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-left-top" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
+        <div id="container-left-mid" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
+        <div id="container-left-bot" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
     </div>
     <div id="container-right" style="position:absolute; top:20%; left:60%; border:1px solid black; display:flex; flex-direction:column;">
-        <div id="container-right-top" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
-        <div id="container-right-mid" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
-        <div id="container-right-bot" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-right-top" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
+        <div id="container-right-mid" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
+        <div id="container-right-bot" style="display:flex;">
+            <div style="flex:6">
+                <h2 class="task-id">000</h2>
+                <p class="task-desc">This item is not currently available.</p>
+            </div>
+            <div style="flex:1">
+                <img class="task-img" src="images/placeholder.jpg" alt="Task Image"/>
+            </div>
+        </div>
     </div>
 
     <!-- Navigation Buttons -->
     <button onclick="onClick(false)" onmouseover="changeBackground('images/menu-left.png')" onmouseout="resetBackground()" style="position:absolute; left:15%; top:85%; width:8%; height:8%; opacity:0%;"></button>
     <button onclick="onClick(true)" onmouseover="changeBackground('images/menu-right.png')" onmouseout="resetBackground()" style="position:absolute; left:75%; top:83%; width:8%; height:8%; opacity:0%;"></button>
-    <a href="table.html"><div style="position:absolute; top:10%; left:47%; width:4%; height:5%; background:white; border:0.5px solid gray; border-radius:0.5%; text-align:center; line-height:1.5em;">Put it Down</div></a>
+    <a href="table.html">
+        <div style="position:absolute; top:10%; left:47%; width:4%; height:5%; background:white; border:0.5px solid gray; border-radius:0.5%; text-align:center; line-height:1.5em;">
+            Put it Down
+        </div>
+    </a>
 
     <!-- Page Display -->
     <div id="page-display" style="position:absolute; bottom:5%; left:49%; transform:translateX(-50%); font-size:1.2em; color:white;">
@@ -80,7 +132,7 @@
             document.body.style.backgroundImage = 'url("images/menu-normal.png")';
         }
 
-        let taskList = getTasks();
+        const taskList = getTasks();
         let page = 1;
         const perPage = 6;
         const maxPage = Math.ceil(taskList.length / perPage);
@@ -127,8 +179,8 @@
             const tasks = getCurrentPageElements();
             containerIds.forEach((cid, idx) => {
                 const container = document.getElementById(cid);
-                const idEl = container.querySelector('h2#id');
-                const descEl = container.querySelector('p#description');
+                const idEl = container.querySelector('h2.task-id');
+                const descEl = container.querySelector('p.task-desc');
                 const imgEl = container.querySelector('img.task-img');
 
                 if (tasks[idx]) {
@@ -136,7 +188,7 @@
                     idEl.textContent = taskId;
                     descEl.textContent = taskDesc;
                     if (genericImages.length) {
-                        const imgIndex = hashStringToInt(taskId) % genericImages.length;
+                        const imgIndex = hashStringToInt(taskId) %enericImages.length;
                         imgEl.src = genericImages[imgIndex];
                     }
                 } else {
