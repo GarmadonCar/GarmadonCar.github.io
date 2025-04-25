@@ -123,14 +123,14 @@
 
 
             async function cooked() {
+                window.location.href = ("table.html"); 
                 
-            window.location.href = ("table.html");
             }
             const params = new URLSearchParams(window.location.search);
             const id = params.get("id");
-
-            if(id==null || !Number.isInteger(id) || id.length != 4) {
-                cooked()
+            const parsedId = Number(id);
+            if (id == null || isNaN(parsedId) || parsedId < 1 || parsedId > 999) {
+                cooked();
             }
 
             var music = new Audio('sounds/soul-and-mind.mp3'); 
