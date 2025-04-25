@@ -12,7 +12,7 @@ function saveTasks(){
 // returns nill
 // creates a new task in storage
 function setTask(id, description){
-  tasklist += ("ඞ" + id + "ඞ" + description);
+  tasklist += (id + "ඞ" + description + "ඞ");
 
   saveTasks();
 }
@@ -20,7 +20,7 @@ function setTask(id, description){
 // returns Array of all id-description tuples
 
 function getTasks() {
-  var index = 1;
+  var index = 0;
   var tasks = [];
 
   var i = 0;
@@ -37,7 +37,7 @@ function getTasks() {
 // returns the description of the given id
 var i;
 function getTask(id) {
-  
+
   var index = tasklist.indexOf(id);
 
   if(index == -1){
@@ -84,7 +84,7 @@ function updateTask(id, description) {
   index += 4;
   i = index;
 
-  while (tasklist[index] != "ඞ") i++;
+  while (tasklist[i] != "ඞ") i++;
 
   tasklist = tasklist.replaceAt(index, i, description);
 
@@ -103,7 +103,7 @@ function removeTask(id) {
   index += 4;
   i = index;
 
-  while (tasklist[index] != "ඞ") i++;
+  while (tasklist[i] != "ඞ") i++;
 
   tasklist = tasklist.replaceAt(index, i, "");
 
