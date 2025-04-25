@@ -54,10 +54,84 @@
         <script type="text/javascript" src="util.js"></script>
         <script type="text/javascript" src="yapper.js"></script>
         <script type="text/javascript" src="bigboy.js"></script>
+        <script type="text/javascript" src="todo.js"></script>
         <script type="text/javascript" src="generic-conversation/explainer-gc.js"></script>
         <script type="module">
-            var au = new Audio('sounds/bin-pon.mp3');
-            au.play();
+            async function whichWayWesternMan() { // https://i.imgflip.com/7m65mh.jpg
+                return new Promise(resolve => {
+                    const div = document.createElement("button");
+                    div.id = "textbox";
+                    div.style.cssText = "font-size: 200% ;width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
+                    document.body.appendChild(div);
+
+                    const container = document.createElement('div');
+                    container.className = 'choice-container';
+
+                    const btnA = document.createElement('button');
+                    btnA.textContent = "Yell";
+                    const btnB = document.createElement('button');
+                    btnB.textContent = "Devour";
+
+                    container.append(btnA, btnB);
+                    document.querySelector('.align-overlay').appendChild(container);
+
+                    function cleanup(result) {
+                        btnA.removeEventListener('click', onA);
+                        btnB.removeEventListener('click', onB);
+                        container.remove();
+                        div.remove()
+                        resolve(result);
+                    }
+
+                    function onA() { cleanup(true); }   // true for "yell"
+                    function onB() { cleanup(false); }  // false for "devour"
+
+                    btnA.addEventListener('click', onA);
+                    btnB.addEventListener('click', onB);
+                });
+            }
+
+            async function changeOrder(id) {
+                return new Promise(resolve => {
+                    const textbox = document.createElement("input");
+                    textbox.type = "text";
+                    textbox.id = "textbox";
+                    textbox.value = getTask(id); // Pre-fill with current description
+                    textbox.style.cssText = "font-size: 200%; width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
+                    document.body.appendChild(textbox);
+                    textbox.focus();
+
+                    function cleanup() {
+                        textbox.remove();
+                        resolve();
+                    }
+
+                    function onEnter(event) {
+                        if (event.key === "Enter") {
+                            const newDesc = textbox.value.trim();
+                            if (newDesc.length > 0) {
+                                updateTask(id, newDesc);
+                                cleanup();
+                            }
+                        }
+                    }
+
+                    textbox.addEventListener("keydown", onEnter);
+                });
+            }
+
+
+
+            async function cooked() {
+
+            }
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+
+            if(id==null || !Number.isInteger(id) || id.length != 4) {
+                cooked()
+            }
+
             var music = new Audio('sounds/soul-and-mind.mp3'); 
             music.addEventListener('ended', function() {
                 this.currentTime = 0;
@@ -66,42 +140,74 @@
             music.play();
 
             await fadeFromBlack(2000);
+            
+            const description = getTask(id);
 
-            await sleep(3000);
-            await yap("[...]")
-            //console.log("BEFORE");
-            await sleep(1000);
-            await yap("?: ")
+            if(description == null) cooked();
 
-            await sleep(1000);
-            await yap("[A man in work uniform shuffles towards you.]")
 
-            //console.log("AFTER");
+            // all checks done, lets fly!
 
-            await fadeToBlack(500);
+            var rand = Math.floor(Math.random() * 2);
+            console.log(rand)
 
-            const img = document.createElement("img");
-            img.src = "images/tenshicrop.png";
-            img.className = "overlay-img";
+            if(rand==0) {
+                console.log("TENSHI!")
+                const img = document.createElement("img");
+                img.src = "images/tenshicrop.png";
+                img.className = "overlay-img";
+                document.querySelector(".align-overlay").appendChild(img);
 
-            document.querySelector(".align-overlay").appendChild(img);
+                await yap("Dear customer, your order has been prepared and is ready! ごゆっくりどうぞ！")
+                await yap("[An exquisite meal is brought before you.]")
+                await yap(`[The "${description}"]`)
+                const isYell = await whichWayWesternMan()
 
-            await fadeFromBlack(500);
+                if(isYell) {
+                    img.src = "images/tenshinervcrop.png";
+                    await yap("WHAT THE FUCK IS WRONG WITH YOU, THIS ISN’T WHAT I WANT, CHANGE IT NOW!!!")
+                    await yap("Munasinghe: : Dear customer, please calm yourself, they’re…")
+                    await yap("Munasinghe: : no, apologies. What would you like me to change it to?")
+                    await yap("CHANGE IT TO THIS!")
+                    await changeOrder(id);
+                    await yap("Munasinghe: Very well, it shall be done. くそったれが...")
+                } else {
+                    // TODO Devour soud
+                    removeTask(id);
+                    await yap("[You belch an unimaginable stench.]")
+                }
 
-            await yap("Munasinghe: Oh, it's you.")
+            } else if (rand == 1) {
+                const img = document.createElement("img");
+                img.src = "images/bobbyhappycrop.png";
+                img.className = "overlay-img";
+                img.style="width:25%;top:17.2%;"
+                document.querySelector(".align-overlay").appendChild(img);
 
-            // ALL THE FLAG STUFF
-            if(firstVisitFlag) {
-                await yap("Munasinghe: It's your first time here? Okay then, let me grab the script.");
-                await yap("Munasinghe: [Ehem]");
-                await yap("Munasinghe: At this establishment, we are committed to serving your needs, dear customer!");   
-                await gc_explainer();
-                await yap("Munasinghe: Well then, we at Big Boy hope you enjoy your time at the establishment!")
+                //TODO SPRING IN MY STEP
+
+                await sleep(7500);
+                await yap("01101000 01100101 01110010 01100101!")
+                await yap("[An exquisite meal is brought before you.]")
+                await yap(`[The "${description}"]`)
+                const isYell = await whichWayWesternMan()
+
+                if(isYell) {
+                    img.src = "images/bobbynervcrop.png";
+                    await yap("WHAT THE FUCK IS WRONG WITH YOU, THIS ISN’T WHAT I WANT, CHANGE IT NOW!!!")
+                    await yap("01101111 01101011 01100001 01111001…?")
+                    await yap("CHANGE IT TO THIS!")
+                    await changeOrder(id);
+                    await yap("01100100 01101111 01101110 01100101…")
+                } else {
+                    img.src = "images/bobbynervcrop.png";
+                    // TODO Devour soud)
+                    removeTask(id);
+                    await yap("[You belch an unimaginable stench.]")
+                }
+
             }
-
-            await yap("Munasinghe: Let me know if you need anything.")
-
-            await fadeToBlack(2000);
+            window.location.href = ("table.html"); 
 
             window.location.href = ("table.html");
         </script>
