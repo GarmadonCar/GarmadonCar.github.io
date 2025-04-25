@@ -41,6 +41,32 @@
                 width: 30%;
                 height: auto;
             }
+
+            .choice-container {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10; /* above your images/text */
+            }
+
+            .choice-container button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background: white(0,0,0,0.7);
+            color: black;
+            border: solid gray 1px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            }
+
+            .choice-container button:hover {
+            background: lightgray;
+            }
+
         </style>
     </head>
     <body>
@@ -148,6 +174,8 @@
 
 
             // all checks done, lets fly!
+            const burp = new Audio("sounds/burp.mp3");
+            burp.currentTime = 0;
 
             var rand = Math.floor(Math.random() * 2);
             console.log(rand)
@@ -173,7 +201,8 @@
                     await changeOrder(id);
                     await yap("Munasinghe: Very well, it shall be done. くそったれが...")
                 } else {
-                    // TODO Devour soud
+                    burp.currentTime = 0;
+                    burp.play()
                     removeTask(id);
                     await yap("[You belch an unimaginable stench.]")
                 }
@@ -185,7 +214,13 @@
                 img.style="width:25%;top:17.2%;"
                 document.querySelector(".align-overlay").appendChild(img);
 
-                //TODO SPRING IN MY STEP
+                music.pause()
+                var trauma = new Audio('sounds/springinmystep.mp3'); 
+                trauma.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                }, false);
+                trauma.play();
 
                 await sleep(7500);
                 await yap("01101000 01100101 01110010 01100101!")
@@ -202,7 +237,8 @@
                     await yap("01100100 01101111 01101110 01100101…")
                 } else {
                     img.src = "images/bobbynervcrop.png";
-                    // TODO Devour soud)
+                    burp.currentTime = 0;
+                    burp.play()
                     removeTask(id);
                     await yap("[You belch an unimaginable stench.]")
                 }
