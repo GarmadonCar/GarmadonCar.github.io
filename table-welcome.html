@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BIG BOY TODO APP!!!</title>
+        <link rel="stylesheet" href="bigboy.css">
+        <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+                background-image: url("images/table-talking.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 100% auto;
+                background-position-y: 50%;
+            }
+        </style>
+    </head>
+    <body>
+
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="text/javascript" src="bigboy.js"></script>
+        <script type="text/javascript" src="generic-conversation/explainer-gc.js"></script>
+        <script type="module">
+            var au = new Audio('sounds/bin-pon.mp3');
+            au.play();
+            var music = new Audio('sounds/soul-and-mind.mp3'); 
+            music.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            music.play();
+
+            await fadeFromBlack(2000);
+
+            await sleep(3000);
+            await yap("[...]")
+            //console.log("BEFORE");
+            await sleep(1000);
+            await yap("Munasinghe: いらっしゃいませ！")
+            //console.log("AFTER");
+
+            await fadeToBlack(500);
+
+            document.body.innerHTML += '<img src="images/tenshicrop.png" style="width: 30%; position:absolute; top: 12.5%; left:30%;"></img>'
+            
+            await fadeFromBlack(500);
+
+            await yap("Munasinghe: Oh, it's you.")
+
+            // ALL THE FLAG STUFF
+            if(firstVisitFlag) {
+                await yap("Munasinghe: It's your first time here? Okay then, let me grab the script.");
+                await yap("Munasinghe: [Ehem]");
+                await yap("Munasinghe: At this establishment, we are committed to serving your needs, dear customer!");   
+                await gc_explainer();
+                await yap("Munasinghe: Well then, we at Big Boy hope you enjoy your time at the establishment!")
+            }
+
+            await yap("Munasinghe: Let me know if you need anything.")
+
+            await fadeToBlack(2000);
+
+            window.location.href = ("table.html");
+        </script>
+
+    </body>
+
+</html>

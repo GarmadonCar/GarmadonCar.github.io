@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BIG BOY TODO APP!!!</title>
+        <link rel="stylesheet" href="bigboy.css">
+        <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+                background-image: url("images/table.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 100% auto;
+                background-position-y: 50%;
+            }
+            .hover-fade {
+                opacity: 0.1;
+                transition: opacity 0.3s ease;
+            }
+                .hover-fade:hover {
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="tablet.html">
+        <img class="hover-fade" src="images/glowy_tablet.png" style="width: 9%; position:absolute; top: 44%; left:21.5%;"></img></a>
+        
+        <a href="menu.html">
+        <img class="hover-fade" src="images/glowy_menu.png" style="width: 32%; position:absolute; top: 24.4%; left:-7.4%;"></img></a>
+
+
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="module">
+            var music = new Audio('sounds/soul-and-mind.mp3'); 
+            music.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            music.play();
+
+            await fadeFromBlack(2000);
+            
+
+
+        </script>
+
+    </body>
+
+</html>

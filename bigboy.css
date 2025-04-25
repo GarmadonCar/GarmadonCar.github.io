@@ -1,60 +1,16 @@
-.background {
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-  background-color: #25273c;
+/* DEMO-SPECIFIC STYLES */
+.typewriter-text {
+  display: inline-block;
+  color: #000;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  animation: typing 3s steps(100, end);
 }
 
-/* .button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10em;
-  cursor: pointer;
-  color: transparent;
-} */
-
-#menu {
-  margin: 0;
-  padding: 0;
-  top: 33.5%;
-  left: -7%;
-  position: absolute;
-  width: 31%;
-  height: auto;
-  opacity: 10%;
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
-#menu:hover {
-  opacity: 100%;
-}
-
-#tablet {
-  margin: 0;
-  padding: 0;
-  top: 46.5%;
-  left: 21.5%;
-  position: absolute;
-  width: 9%;
-  height: auto;
-  opacity: 10%;
-}
-
-#tablet:hover {
-  opacity: 100%;
-}
-
-#table {
-  width: 100%;
-  height: auto;
-}
-
-body {
-  overflow: hidden;
-}

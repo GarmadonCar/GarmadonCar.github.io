@@ -1,3 +1,4 @@
+var firstVisitFlag = true;
 (function() {
 
   /**
@@ -20,7 +21,7 @@
   * @param string cname
   * @returns {*}
   */
-  function getCookie(cname) {
+  function readCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
     for(let i = 0; i < ca.length; i++) {
@@ -41,9 +42,9 @@
   var cookie = readCookie('first-visit');
 
   if (cookie != null && cookie == 'first-visit') {
-
+    firstVisitFlag = false;
   } else {
-
+    firstVisitFlag = true;
   }
 
   setCookie('first-visit','true', 60);

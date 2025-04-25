@@ -7,13 +7,40 @@
         <title>BIG BOY TODO APP!!!</title>
         <link rel="stylesheet" href="bigboy.css">
         <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+                background-image: url("images/outside_view.jpg");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 100% 100%;
+            }
+        </style>
     </head>
     <body>
-      <div class="background">
-        <img id="table" src="./images/table.jpg"/>
-        <input id="menu" type="image" src="./images/glowy_menu.png"/>
-        <input id="tablet" type="image" src="./images/glowy_tablet.png"/>
-      </div>
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="module">
+            var music = new Audio('sounds/highway.mp3'); 
+            music.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            music.play();
+            await yap("[...]")
+            //console.log("BEFORE");
+            await sleep(1000);
+            await yap("(Finally, looks like I’ve found a place where I can get big portions of PRODUCTIVITY at an affordable rate!)")
+            //console.log("AFTER");
+            await yap("[You move to enter this FINE establishment.]")
+
+            await sleep(1000);
+
+            await fadeToBlack(2000);
+
+            window.location.href = ("table-welcome.html");
+        </script>
+
     </body>
 
 </html>
