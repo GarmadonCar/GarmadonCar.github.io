@@ -1,82 +1,107 @@
-// Save list
-const saveItems = function () {
-    localStorage.setItem('items', document.querySelector("#items-list").innerHTML);
+var tasklist = localStorage.getItem('tasks');
+
+String.prototype.replaceAt = function(startIndex, endIndex, replacement) {
+    return this.substring(0, index) + replacement + this.substring(endIndex);
 }
 
-var consumeBtn = document.getElementsByClassName("consume");
-var i;
+function saveTasks(){
+  localStorage.setItem('tasks', tasklist);
+}
 
-// Add consume button
-function addConsumeBtn (element) {
-  var consume = document.createElement("SPAN");
-  var txt = document.createTextNode("Consume");
-  consume.className = "consume";
-  consume.appendChild(txt);
-  element.appendChild(consume);
+// returns nill
+// creates a new task in storage
+function setTask(id, description){
+  tasklist += ("ඞ" + id + "ඞ" + description);
 
-  // Make consume button delete Item
-  for (i = 0; i < consumeBtn.length; i++) {
-    consume[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
+  saveTasks();
+}
 
-      // Animation
-    }
+// returns Array of all id-description tuples
+
+function getTasks() {
+  var index = 1;
+  var tasks = [];
+
+  var i = 0;
+  while (index < tasklist.length()) {
+    tasks[i] = new Array(2);
+    tasks[i][0] = tasklist.substring(index, index + 2);
+    tasks[i][1] = getTask(tasks[i][0]);
+
+    i++;
   }
+  return tasks;
 }
 
-var yellBtn = document.getElementsByClassName("yell");
+// returns the description of the given id
 var i;
+function getTask(id) {
+  var index = tasklist.indexOf(id);
 
-// Add yell button
-function addYellBtn (element) {
-  var yell = document.createElement("SPAN");
-  var txt = document.createTextNode("Yell");
-  yell.className = "yell";
-  yell.appendChild(txt);
-  li.appendChild(yell);
-
-  for (i = 0; i < yellBtn.length; i++) {
-    consume[i].onclick = function(){
-      var div = this.parentElement;
-      // Animation
-
-      // Make yell button change task name
-      var inputValue = document.getElementById("input").value;
-      div.innerHTML = inputValue;
-      addConsumeBtn(div);
-      addYellBtn(div);
-    }
+  if(index == -1){
+    return null;
   }
+
+  index += 4;
+  i = index;
+
+  while (tasklist[index] != "ඞ") i++;
+
+  return tasklist.substring(index, i);
 }
 
-// Retrieve task list
-function getTasks () {
-  var tasklist = localStorage.getItem('items');
-  document.getElementById("#items-list").innerHTML = tasklist;
-}
-
-// Add new task to list
-function setTask (inputId) {
-  var task = localStorage.getItem("inputId");
-
-  var li = document.createElement("li");
-  var t = document.createTextNode(task);
-
-  li.appendChild(t);
-  document.getElementById("todoList").appendChild(li);
-
-  addConsumeBtn(li);
-  addYellBtn(li);
-
-  saveItems();
-}
-
-// Create a new ID for menu task
-function newId (task) {
+// returns a non-duplicate id that isnt already in use
+var i;
+function generateID() {
   var id = Math.floor((Math.random() * 999) + 1);
+  var textId = id.toString();
 
-  localStorage.setItem(id, inputValue);
+  while (textId.length() != 3) {
+    textId = "0" + textId;
+  }
 
-  document.getElementById("input").value = "";
+  if (tasklist.includes(textId) || tasklist == "666"){
+    return generateID();
+  } else {
+    return textId;
+  }
+}
+
+// returns nill
+// updates an already existing task. Does nothing if task doesnt exist?
+var i;
+function updateTask(id, description) {
+  var index = tasklist.indexOf(id);
+
+  if(index == -1){
+    return;
+  }
+
+  index += 4;
+  i = index;
+
+  while (tasklist[index] != "ඞ") i++;
+
+  tasklist = tasklist.replaceAt(index, i, description);
+
+  saveTasks();
+}
+
+// returns nill
+// removes a task from storage
+function removeTask(id) {
+  var index = tasklist.indexOf(id);
+
+  if(index == -1){
+    return;
+  }
+
+  index += 4;
+  i = index;
+
+  while (tasklist[index] != "ඞ") i++;
+
+  tasklist = tasklist.replaceAt(index, i, "");
+
+  saveTasks();
 }
