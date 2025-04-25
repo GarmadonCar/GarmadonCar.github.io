@@ -27,7 +27,10 @@
         </style>
     </head>
     <body>
-        
+
+        <p id="code-text" style="color: white; position:absolute; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size:300%; top:7%; left:48.5%;
+        "></p>
 
         <img src="images/tablet-min.png" style="height:50%; width: 50%; border-radius: 5%; margin:auto; display:block;"></img>
         <a href="table.html"><div style="font-size: 100% ;width: 4%; height:5%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:48%; text-align:center; margin:auto">Put it Down</div></a>
@@ -47,6 +50,45 @@
 
 
         </script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="text/javascript" src="todo.js"></script>
+<script>
+            var code = Array(0);
+            function clickButton(event) {
+                console.log(code.length)
+                var id = event.target.id;
+                if (!isNaN(id)) {
+                    var number = parseInt(id);
+                    code.push(number);
+                    if(code.length == 3) { 
+                        console.log("FULL!")
+                        // TODO RETRIEVE TASK HERE
+                        setTask(code.join(""));
+                        
+
+                        code = []
+                    }
+                }     else if (id === "E") {
+                    code.pop();
+                }
+                document.getElementById("code-text").innerText = code.join("")
+
+            }
+</script>
+<img id="0" class="hover-fade" src="images/buttons/0.png" style="width: 5.33%; position:absolute; top: 50.4%; left:48.4%;" onclick="clickButton(event)"/>
+<img id="1" class="hover-fade" src="images/buttons/1.png" style="width: 5.33%; position:absolute; top: 21.5%; left: 42.6%;" onclick="clickButton(event)"/>
+<img id="2" class="hover-fade" src="images/buttons/2.png" style="width: 5.33%; position:absolute; top: 21.4%; left: 48.2%;" onclick="clickButton(event)"/>
+<img id="1" class="hover-fade" src="images/buttons/1.png" style="width: 5.33%; position:absolute; top: 21.5%; left: 42.6%;" onclick="clickButton(event)"/>
+<img id="2" class="hover-fade" src="images/buttons/2.png" style="width: 5.33%; position:absolute; top: 21.4%; left: 48.2%;" onclick="clickButton(event)"/>
+<img id="3" class="hover-fade" src="images/buttons/3.png" style="width: 5.33%; position:absolute; top: 21.4%; left: 53.9%;" onclick="clickButton(event)"/>
+<img id="4" class="hover-fade" src="images/buttons/4.png" style="width: 5.33%; position:absolute; top: 31%; left: 42.6%;" onclick="clickButton(event)"/>
+<img id="5" class="hover-fade" src="images/buttons/5.png" style="width: 5.33%; position:absolute; top: 31%; left: 48.3%;" onclick="clickButton(event)"/>
+<img id="6" class="hover-fade" src="images/buttons/6.png" style="width: 5.33%; position:absolute; top: 31%; left: 53.9%;" onclick="clickButton(event)"/>
+<img id="7" class="hover-fade" src="images/buttons/7.png" style="width: 5.33%; position:absolute; top: 40.8%; left: 42.6%;" onclick="clickButton(event)"/>
+<img id="8" class="hover-fade" src="images/buttons/8.png" style="width: 5.33%; position:absolute; top: 40.7%; left: 48.3%;" onclick="clickButton(event)"/>
+<img id="9" class="hover-fade" src="images/buttons/9.png" style="width: 5.33%; position:absolute; top: 40.7%; left: 54%;" onclick="clickButton(event)"/>
+<img id="E" class="hover-fade" src="images/buttons/erase.png" style="width: 5.33%; position:absolute; top: 50.5%; left: 42.7%;" onclick="clickButton(event)"/>
+
 
     </body>
 

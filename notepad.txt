@@ -1,0 +1,21 @@
+
+// returns nill
+// creates a new task in storage
+function setTask(id, task)
+
+// returns Array of all id-description tuples
+function getTasks() 
+
+// returns the description of the given id
+function getTask(id) 
+
+// returns a non-duplicate id that isnt already in use
+function generateID() 
+
+// returns nill
+// updates an already existing task. Does nothing if task doesnt exist?
+function updateTask(id, description)
+
+// returns nill
+// removes a task from storage
+function removeTask(id)

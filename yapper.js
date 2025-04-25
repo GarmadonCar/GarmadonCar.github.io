@@ -76,6 +76,10 @@ async function fadeFromBlack(duration = 1000) {
     await new Promise(resolve => setTimeout(resolve, duration));
     overlay.remove();
 }
+
+
+// fuuuck this shit??? Add mayhaps a keep black on for x duration shit??? IM killing myself auhfasuhfashfas
+// k + c my asshole bro
 // async function fadeToAndBackFromBlack(duration = 1000, pause = 0) {
 //     const overlay = document.createElement("div");
 //     overlay.style.cssText = `
