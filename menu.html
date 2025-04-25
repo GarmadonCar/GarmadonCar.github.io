@@ -1,196 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BIG BOY TODO APP!!!</title>
-        <link rel="stylesheet" href="bigboy.css">
-        <!--<script src="bigboy.js"></script>-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BIG BOY TODO APP!!! with Images</title>
+    <link rel="stylesheet" href="bigboy.css">
+    <style>
+        body {
+            background-image: url("images/menu-normal.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: auto 100%;
+            background-position: center 50%;
+        }
+        .hover-fade {
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+        .hover-fade:hover {
+            opacity: 1;
+        }
+        #id, #description {
+            margin: 2px;
+        }
+        #container-left, #container-right {
+            max-width: 20vw;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        #container-left p, #container-right p {
+            white-space: normal;
+        }
+        /* Ensure all task images are square and stretched */
+        .task-img {
+            width: 5vw;
+            height: 5vw;
+            object-fit: fill;
+            margin: 1vw;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="yapper.js"></script>
+    <script type="module">
+        ambiance();
+        await fadeFromBlack(2000);
+    </script>
 
-        <style>
-            body {
-                background-image: url("images/menu-normal.png");
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: auto 100% ;
-                background-position-y: 50%;
-                background-position-x: center;
+    <!-- Task Containers -->
+    <div id="container-left" style="position:absolute; top:20%; left:20%; border:1px solid black; display:flex; flex-direction:column;">
+        <div id="container-left-top" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-left-mid" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-left-bot" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+    </div>
+    <div id="container-right" style="position:absolute; top:20%; left:60%; border:1px solid black; display:flex; flex-direction:column;">
+        <div id="container-right-top" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-right-mid" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+        <div id="container-right-bot" style="display:flex;"><div style="flex:6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div><div style="flex:1"><img class="task-img" src="images/placeholder.jpg"/></div></div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button onclick="onClick(false)" onmouseover="changeBackground('images/menu-left.png')" onmouseout="resetBackground()" style="position:absolute; left:15%; top:85%; width:8%; height:8%; opacity:0%;"></button>
+    <button onclick="onClick(true)" onmouseover="changeBackground('images/menu-right.png')" onmouseout="resetBackground()" style="position:absolute; left:75%; top:83%; width:8%; height:8%; opacity:0%;"></button>
+    <a href="table.html"><div style="position:absolute; top:10%; left:47%; width:4%; height:5%; background:white; border:0.5px solid gray; border-radius:0.5%; text-align:center; line-height:1.5em;">Put it Down</div></a>
+
+    <!-- Page Display -->
+    <div id="page-display" style="position:absolute; bottom:5%; left:49%; transform:translateX(-50%); font-size:1.2em; color:white;">
+        <span id="current-page">Page 1</span> of <span id="total-pages">1</span>
+    </div>
+
+    <script src="todo.js"></script>
+    <script>
+        function changeBackground(imagePath) {
+            document.body.style.backgroundImage = `url("${imagePath}")`;
+        }
+        function resetBackground() {
+            document.body.style.backgroundImage = 'url("images/menu-normal.png")';
+        }
+
+        let taskList = getTasks();
+        let page = 1;
+        const perPage = 6;
+        const maxPage = Math.ceil(taskList.length / perPage);
+        const containerIds = [
+            "container-left-top","container-left-mid","container-left-bot",
+            "container-right-top","container-right-mid","container-right-bot"
+        ];
+
+        // Storage for generic images
+        let genericImages = [];
+
+        // Fetch and parse directory listing of generic images
+        async function loadGenericImages() {
+            try {
+                const resp = await fetch('/images/generic-images/');
+                const html = await resp.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                genericImages = Array.from(doc.querySelectorAll('a'))
+                    .map(a => a.getAttribute('href'))
+                    .filter(name => /\.(jpe?g|png|gif|bmp|webp)$/i.test(name))
+                    .map(name => `/images/generic-images/${name}`);
+            } catch (err) {
+                console.error('Failed to load generic images:', err);
             }
-            .hover-fade {
-                opacity: 0.1;
-                transition: opacity 0.3s ease;
+        }
+
+        // Simple hash to map a string code to an integer
+        function hashStringToInt(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
             }
-                .hover-fade:hover {
-                opacity: 1;
-            }
-            #id {
-                margin: 2px;
-            }
-            #description {
-                margin: 2px;
-            }
-            #photograph {
-                width:5vw;
-                margin-left:5vw;
-                margin:1vw;
-            }
-            #container-left, #container-right {
-                max-width: 20vw; /* or whatever fits your layout */
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
+            return Math.abs(hash);
+        }
 
-            #container-left p, #container-right p {
-                white-space: normal;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
-            
-        </style>
-    </head>
-    <body>
-        <script type="text/javascript" src="util.js"></script>
-        <script type="text/javascript" src="yapper.js"></script>
-        <script type="module">
-            ambiance()
+        function getCurrentPageElements() {
+            const start = (page - 1) * perPage;
+            return taskList.slice(start, start + perPage);
+        }
 
-            await fadeFromBlack(2000);
-            
-        
+        function renderTasks() {
+            const tasks = getCurrentPageElements();
+            containerIds.forEach((cid, idx) => {
+                const container = document.getElementById(cid);
+                const idEl = container.querySelector('h2#id');
+                const descEl = container.querySelector('p#description');
+                const imgEl = container.querySelector('img.task-img');
 
-        </script>
-
-        <div id="container-left" style="display:flex; flex-direction: column; position:absolute; border: solid 1px black; top: 20%; left: 20%">
-            <div id="container-left-top" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-            <div id="container-left-mid" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-            <div id="container-left-bot" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-        </div>
-
-        <div id="container-right" style="display:flex; flex-direction: column; position:absolute; border: solid 1px black; top: 20%; left: 60%">
-            <div id="container-right-top" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-            <div id="container-right-mid" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-            <div id="container-right-bot" style="display:flex;">
-                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
-                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
-            </div>
-        </div>
-        <!-- LEFT BUTTON -->
-        <button
-        onclick="onClick(false)"
-        onmouseover="changeBackground('images/menu-left.png')"
-        onmouseout="resetBackground()"
-        style="position:absolute; width:8%; height:8%; opacity: 0%; left:15%; top:85%">
-        </button>
-
-        <!-- RIGHT BUTTON -->
-        <button
-        onclick="onClick(true)"
-        onmouseover="changeBackground('images/menu-right.png')"
-        onmouseout="resetBackground()"
-        style="position:absolute; width:8%; height:8%; opacity: 0%; left:75%; top:83%">
-        </button>
-        <a href="table.html"><div style="font-size: 100% ;width: 4%; height:5%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 10%; left:47%; text-align:center; margin:auto">Put it Down</div></a>
-
-        <div id="page-display" style="position: absolute; bottom: 5%; left: 49%; transform: translateX(-50%); font-size: 1.2em; color: white;">
-            <span id="current-page">Page 1</span> of <span id="total-pages">1</span>
-        </div>
-        <script type="text/javascript" src="todo.js"></script>
-
-        <script>
-            function changeBackground(imagePath) {
-                document.body.style.backgroundImage = `url("${imagePath}")`;
-            }
-
-            function resetBackground() {
-                document.body.style.backgroundImage = 'url("images/menu-normal.png")';
-            }
-
-
-            taskList = getTasks()
-
-            var page = 1;
-            var perPage = 6;
-            var maxPage = Math.ceil(taskList.length / 6);
-            
-            function getCurrentPageElements() {
-                var startingElement = (page * 6)-6;
-                var currentPageElements = []
-                for (let i = startingElement; i<startingElement+6; i++) {
-                    currentPageElements.push(taskList[i]);
-                }
-                return currentPageElements;
-            }
-            
-            console.log(getCurrentPageElements())
-
-            const containerIds = [
-                "container-left-top",
-                "container-left-mid",
-                "container-left-bot",
-                "container-right-top",
-                "container-right-mid",
-                "container-right-bot"
-            ];
-
-            var pageturn = new Audio('sounds/pageturn.mp3');
-
-            function renderTasks() {
-                const tasks = getCurrentPageElements();
-
-                containerIds.forEach((containerId, index) => {
-                    const container = document.getElementById(containerId);
-                    const idElement = container.querySelector("#id");
-                    const descElement = container.querySelector("#description");
-
-                    if (tasks[index]) {
-                        const [taskId, taskDesc] = tasks[index];
-                        idElement.textContent = taskId;
-                        descElement.textContent = taskDesc;
-                    } else {
-                        idElement.textContent = "---";
-                        descElement.textContent = "No item available.";
+                if (tasks[idx]) {
+                    const [taskId, taskDesc] = tasks[idx];
+                    idEl.textContent = taskId;
+                    descEl.textContent = taskDesc;
+                    if (genericImages.length) {
+                        const imgIndex = hashStringToInt(taskId) % genericImages.length;
+                        imgEl.src = genericImages[imgIndex];
                     }
-                });
-
-                // Update the page display
-                document.getElementById("current-page").textContent = page;
-                document.getElementById("total-pages").textContent = maxPage;
-            }
-
-
-            // Initial render
-            renderTasks();
-
-            function onClick(forward) {
-                pageturn.currentTime=0;
-                pageturn.play()
-                if (forward) {
-                    page = (page % maxPage) + 1;
                 } else {
-                    page = (page - 2 + maxPage) % maxPage + 1;
+                    idEl.textContent = '---';
+                    descEl.textContent = 'No item available.';
+                    imgEl.src = 'images/placeholder.jpg';
                 }
-                renderTasks();
-            }
+            });
+            document.getElementById('current-page').textContent = page;
+            document.getElementById('total-pages').textContent = maxPage;
+        }
 
+        const pageturn = new Audio('sounds/pageturn.mp3');
+        function onClick(forward) {
+            pageturn.currentTime = 0;
+            pageturn.play();
+            page = forward ? (page % maxPage) + 1 : (page - 2 + maxPage) % maxPage + 1;
+            renderTasks();
+        }
 
-        </script>
-
-    </body>
-
+        // Initialize: load images then render
+        (async () => {
+            await loadGenericImages();
+            renderTasks();
+        })();
+    </script>
+</body>
 </html>
