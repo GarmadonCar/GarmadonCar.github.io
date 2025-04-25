@@ -53,8 +53,11 @@
         <script type="text/javascript" src="yapper.js"></script>
         <script type="text/javascript" src="todo.js"></script>
 <script>
+            var garcarbeep = new Audio('sounds/garcarbeep.mp3');
             var code = Array(0);
             function clickButton(event) {
+                garcarbeep.currentTime=0;
+                garcarbeep.play();
                 console.log(code.length)
                 var id = event.target.id;
                 if (!isNaN(id)) {

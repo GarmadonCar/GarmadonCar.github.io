@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BIG BOY TODO APP!!!</title>
+        <link rel="stylesheet" href="bigboy.css">
+        <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+                background-image: url("images/menu-normal.png");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: auto 100% ;
+                background-position-y: 50%;
+                background-position-x: center;
+            }
+            .hover-fade {
+                opacity: 0.1;
+                transition: opacity 0.3s ease;
+            }
+                .hover-fade:hover {
+                opacity: 1;
+            }
+            #id {
+                margin: 2px;
+            }
+            #description {
+                margin: 2px;
+            }
+            #photograph {
+                width:5vw;
+                margin-left:5vw;
+                margin:1vw;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="module">
+            var music = new Audio('sounds/soul-and-mind.mp3'); 
+            music.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            music.play();
+
+            await fadeFromBlack(2000);
+            
+        
+
+        </script>
+
+        <div id="container-left" style="display:flex; flex-direction: column; position:absolute; border: solid 1px black; top: 20%; left: 20%">
+            <div id="container-left-top" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+            <div id="container-left-mid" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+            <div id="container-left-bot" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+        </div>
+
+        <div id="container-right" style="display:flex; flex-direction: column; position:absolute; border: solid 1px black; top: 20%; left: 60%">
+            <div id="container-right-top" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+            <div id="container-right-mid" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+            <div id="container-right-bot" style="display:flex;">
+                <div style="flex-grow: 6"><h2 id="id">000</h2><p id="description">This item is not currently available.</p></div>
+                <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
+            </div>
+        </div>
+
+        <button onclick="onClick(true)" style="position:absolute; width:8%; height:8%; opacity: 20%; left:15%; top:85%
+        "></button>
+                <button onclick="onClick(false)" style="position:absolute; width:8%; height:8%; opacity: 20%; left:75%; top:83%
+        "></button>
+
+        <script>
+            // TODO Add retrieval
+
+            taskList = [
+                [123,"take out trash"],
+                [666,"eviw"],
+                [422,"jerking my shit"],
+                [444,"jerking my peanuts"],
+                [144,"wowzers thisi s text"],
+                [521,"shitting my balls"],
+                [771,"ena dream bbq is goated"],
+                [812,"that fox girl thing is mad annoying tho"]
+            ]
+
+            var page = 2;
+            var perPage = 6;
+            var maxPage = Math.ceil(taskList.length / 6);
+            
+            function getCurrentPageElements() {
+                var startingElement = (page * 6)-6;
+                var currentPageElements = []
+                for (let i = startingElement; i<startingElement+6; i++) {
+                    currentPageElements.push(taskList[i]);
+                }
+                return currentPageElements;
+            }
+            
+
+
+        </script>
+
+    </body>
+
+</html>
