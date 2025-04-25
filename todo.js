@@ -2,7 +2,7 @@ var tasklist = localStorage.getItem('tasks');
 if (tasklist == null) { tasklist = "001ඞPenisඞ" }
 
 String.prototype.replaceAt = function (startIndex, endIndex, replacement) {
-  return this.substring(0, index) + replacement + this.substring(endIndex);
+  return this.substring(0, startIndex) + replacement + this.substring(endIndex);
 }
 
 function saveTasks() {
