@@ -155,6 +155,8 @@
                 "container-right-bot"
             ];
 
+            var pageturn = new Audio('sounds/pageturn.mp3');
+
             function renderTasks() {
                 const tasks = getCurrentPageElements();
 
@@ -183,6 +185,8 @@
             renderTasks();
 
             function onClick(forward) {
+                pageturn.currentTime=0;
+                pageturn.play()
                 if (forward) {
                     page = (page % maxPage) + 1;
                 } else {
