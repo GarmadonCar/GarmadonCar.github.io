@@ -35,6 +35,18 @@
                 margin-left:5vw;
                 margin:1vw;
             }
+            #container-left, #container-right {
+                max-width: 20vw; /* or whatever fits your layout */
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            #container-left p, #container-right p {
+                white-space: normal;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
         </style>
     </head>
     <body>
@@ -83,27 +95,43 @@
                 <div style="flex-grow: 1"><img id="photograph" src="images/placeholder.jpg"/></div>
             </div>
         </div>
+        <!-- LEFT BUTTON -->
+        <button
+        onclick="onClick(false)"
+        onmouseover="changeBackground('images/menu-left.png')"
+        onmouseout="resetBackground()"
+        style="position:absolute; width:8%; height:8%; opacity: 0%; left:15%; top:85%">
+        </button>
 
-        <button onclick="onClick(true)" style="position:absolute; width:8%; height:8%; opacity: 20%; left:15%; top:85%
-        "></button>
-                <button onclick="onClick(false)" style="position:absolute; width:8%; height:8%; opacity: 20%; left:75%; top:83%
-        "></button>
+        <!-- RIGHT BUTTON -->
+        <button
+        onclick="onClick(true)"
+        onmouseover="changeBackground('images/menu-right.png')"
+        onmouseout="resetBackground()"
+        style="position:absolute; width:8%; height:8%; opacity: 0%; left:75%; top:83%">
+        </button>
+        <a href="table.html"><div style="font-size: 100% ;width: 4%; height:5%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 10%; left:47%; text-align:center; margin:auto">Put it Down</div></a>
+
+        <div id="page-display" style="position: absolute; bottom: 5%; left: 49%; transform: translateX(-50%); font-size: 1.2em; color: white;">
+            <span id="current-page">Page 1</span> of <span id="total-pages">1</span>
+        </div>
+        <script type="text/javascript" src="todo.js"></script>
 
         <script>
+            function changeBackground(imagePath) {
+                document.body.style.backgroundImage = `url("${imagePath}")`;
+            }
+
+            function resetBackground() {
+                document.body.style.backgroundImage = 'url("images/menu-normal.png")';
+            }
+
+
             // TODO Add retrieval
 
-            taskList = [
-                [123,"take out trash"],
-                [666,"eviw"],
-                [422,"jerking my shit"],
-                [444,"jerking my peanuts"],
-                [144,"wowzers thisi s text"],
-                [521,"shitting my balls"],
-                [771,"ena dream bbq is goated"],
-                [812,"that fox girl thing is mad annoying tho"]
-            ]
+            taskList = getTasks()
 
-            var page = 2;
+            var page = 1;
             var perPage = 6;
             var maxPage = Math.ceil(taskList.length / 6);
             
@@ -116,6 +144,52 @@
                 return currentPageElements;
             }
             
+            console.log(getCurrentPageElements())
+
+            const containerIds = [
+                "container-left-top",
+                "container-left-mid",
+                "container-left-bot",
+                "container-right-top",
+                "container-right-mid",
+                "container-right-bot"
+            ];
+
+            function renderTasks() {
+                const tasks = getCurrentPageElements();
+
+                containerIds.forEach((containerId, index) => {
+                    const container = document.getElementById(containerId);
+                    const idElement = container.querySelector("#id");
+                    const descElement = container.querySelector("#description");
+
+                    if (tasks[index]) {
+                        const [taskId, taskDesc] = tasks[index];
+                        idElement.textContent = taskId;
+                        descElement.textContent = taskDesc;
+                    } else {
+                        idElement.textContent = "---";
+                        descElement.textContent = "No item available.";
+                    }
+                });
+
+                // Update the page display
+                document.getElementById("current-page").textContent = page;
+                document.getElementById("total-pages").textContent = maxPage;
+            }
+
+
+            // Initial render
+            renderTasks();
+
+            function onClick(forward) {
+                if (forward) {
+                    page = (page % maxPage) + 1;
+                } else {
+                    page = (page - 2 + maxPage) % maxPage + 1;
+                }
+                renderTasks();
+            }
 
 
         </script>
