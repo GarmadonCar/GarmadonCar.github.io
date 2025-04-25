@@ -6,13 +6,15 @@ const saveItems = function () {
 var consumeBtn = document.getElementsByClassName("consume");
 var i;
 
-function addConsumeBtn(element) {
+// Add consume button
+function addConsumeBtn (element) {
   var consume = document.createElement("SPAN");
   var txt = document.createTextNode("Consume");
   consume.className = "consume";
   consume.appendChild(txt);
   element.appendChild(consume);
 
+  // Make consume button delete Item
   for (i = 0; i < consumeBtn.length; i++) {
     consume[i].onclick = function() {
       var div = this.parentElement;
@@ -26,7 +28,8 @@ function addConsumeBtn(element) {
 var yellBtn = document.getElementsByClassName("yell");
 var i;
 
-function addYellBtn(element) {
+// Add yell button
+function addYellBtn (element) {
   var yell = document.createElement("SPAN");
   var txt = document.createTextNode("Yell");
   yell.className = "yell";
@@ -38,22 +41,23 @@ function addYellBtn(element) {
       var div = this.parentElement;
       // Animation
 
+      // Make yell button change task name
       var inputValue = document.getElementById("input").value;
       div.innerHTML = inputValue;
-      
+      addConsumeBtn(div);
+      addYellBtn(div);
     }
   }
 }
 
 // Retrieve task list
-function getTask() {
+function getTasks () {
   var tasklist = localStorage.getItem('items');
-  document.getElementById("p1").innerHTML = tasklist;
+  document.getElementById("#items-list").innerHTML = tasklist;
 }
 
 // Add new task to list
-function setTask() {
-  var inputId = document.getElementById("myInput").value;
+function setTask (inputId) {
   var task = localStorage.getItem("inputId");
 
   var li = document.createElement("li");
@@ -62,37 +66,17 @@ function setTask() {
   li.appendChild(t);
   document.getElementById("todoList").appendChild(li);
 
-  // Add consume button
   addConsumeBtn(li);
-
-  // Add yell button
   addYellBtn(li);
-
-  // Make consume button delete Item
-
-
-
-
 
   saveItems();
 }
 
 // Create a new ID for menu task
-function newId() {
-  var inputValue = document.getElementById("input").value;
+function newId (task) {
   var id = Math.floor((Math.random() * 999) + 1);
 
   localStorage.setItem(id, inputValue);
 
   document.getElementById("input").value = "";
-}
-
-// Display inputs on tablet
-function inputId(number) {
-  display = document.getElementById("input");
-  display += number;
-
-  if (text.length == 3) {
-
-  }
 }
