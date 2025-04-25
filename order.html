@@ -66,6 +66,33 @@
             .choice-container button:hover {
             background: lightgray;
             }
+            .slip-fade {
+                opacity: 0;
+                transition: opacity 3s ease-in;
+            }
+            .slip-fade.visible {
+                opacity: 1;
+            }
+
+
+            @keyframes fadeInCenter {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.8) translate(-50%, -50%);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) translate(-50%, -50%);
+                }
+            }
+
+            .fade-in-center {
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%);
+                animation: fadeInCenter 4s ease-out forwards;
+                opacity: 0;
+            }
 
         </style>
     </head>
@@ -83,8 +110,46 @@
         <script type="text/javascript" src="todo.js"></script>
         <script type="text/javascript" src="generic-conversation/explainer-gc.js"></script>
         <script type="module">
-            async function whichWayWesternMan() { // https://i.imgflip.com/7m65mh.jpg
+            async function whichWayWesternMan(id, description, img) { // https://i.imgflip.com/7m65mh.jpg
                 return new Promise(resolve => {
+                    const appearlight = new Audio("sounds/appear-light.mp3");
+                    appearlight.play()
+
+
+                    var slipTitle = document.createElement("div");
+                    slipTitle.className = "slip-fade";
+                    slipTitle.style = `
+                        color:white;
+                        position:absolute;
+                        left:49%;
+                        top:37%;
+                        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+                    `;
+                    slipTitle.innerText = id;
+                    document.querySelector(".align-overlay").appendChild(slipTitle);
+
+                    var slipDetails = document.createElement("div");
+                    slipDetails.className = "slip-fade";
+                    slipDetails.style = `
+                        font-size:1vh;
+                        color:gray;
+                        position:absolute;
+                        left:47%;
+                        top:39%;
+                        width:15vh;
+                        overflow:wrap;
+                    `;
+                    slipDetails.innerText = description;
+                    document.querySelector(".align-overlay").appendChild(slipDetails);
+
+                    // Force a reflow to ensure the styles are applied before the animation starts
+                    slipTitle.offsetHeight; // This forces a reflow
+                    slipDetails.offsetHeight; // This forces a reflow
+
+                    // Now trigger the fade-in effect by adding the 'visible' class
+                    slipTitle.classList.add("visible");
+                    slipDetails.classList.add("visible");
+
                     const div = document.createElement("button");
                     div.id = "textbox";
                     div.style.cssText = "font-size: 200% ;width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
@@ -106,6 +171,9 @@
                         btnB.removeEventListener('click', onB);
                         container.remove();
                         div.remove()
+                        img.remove()
+                        slipTitle.remove()
+                        slipDetails.remove()
                         resolve(result);
                     }
 
@@ -114,36 +182,7 @@
 
                     btnA.addEventListener('click', onA);
                     btnB.addEventListener('click', onB);
-                });
-            }
-
-            async function changeOrder(id) {
-                return new Promise(resolve => {
-                    const textbox = document.createElement("input");
-                    textbox.type = "text";
-                    textbox.id = "textbox";
-                    textbox.value = getTask(id); // Pre-fill with current description
-                    textbox.style.cssText = "font-size: 200%; width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
-                    document.body.appendChild(textbox);
-                    textbox.focus();
-
-                    function cleanup() {
-                        textbox.remove();
-                        resolve();
-                    }
-
-                    function onEnter(event) {
-                        if (event.key === "Enter") {
-                            const newDesc = textbox.value.trim();
-                            if (newDesc.length > 0) {
-                                updateTask(id, newDesc);
-                                cleanup();
-                            }
-                        }
-                    }
-
-                    textbox.addEventListener("keydown", onEnter);
-                });
+                    });
             }
 
 
@@ -169,6 +208,8 @@
 
 
             // all checks done, lets fly!
+            const appearheavy = new Audio("sounds/appear-heavy.mp3");
+
             const burp = new Audio("sounds/burp.mp3");
             burp.currentTime = 0;
 
@@ -184,14 +225,21 @@
 
                 await yap("Dear customer, your order has been prepared and is ready! ごゆっくりどうぞ！")
                 await yap("[An exquisite meal is brought before you.]")
-                await yap(`[The "${description}"]`)
-                const isYell = await whichWayWesternMan()
+                appearheavy.play()
+                const slip = document.createElement("img");
+                slip.src = "images/orderSlip.png";
+                slip.className = "overlay-img fade-in-center";
+                slip.style="width:10%; height:auto;"
+                document.querySelector(".align-overlay").appendChild(slip);
+                await sleep(4000);
+                await yap(`[Order Slip is handed to you.]`)
+                const isYell = await whichWayWesternMan(id, description, slip)
 
                 if(isYell) {
                     img.src = "images/tenshinervcrop.png";
                     await yap("WHAT THE FUCK IS WRONG WITH YOU, THIS ISN’T WHAT I WANT, CHANGE IT NOW!!!")
-                    await yap("Munasinghe: : Dear customer, please calm yourself, they’re…")
-                    await yap("Munasinghe: : no, apologies. What would you like me to change it to?")
+                    await yap("Munasinghe: Dear customer, please calm yourself, they’re…")
+                    await yap("Munasinghe: no, apologies. What would you like me to change it to?")
                     await yap("CHANGE IT TO THIS!")
                     await changeOrder(id);
                     await yap("Munasinghe: Very well, it shall be done. くそったれが...")
@@ -219,8 +267,15 @@
                 await sleep(7500);
                 await yap("01101000 01100101 01110010 01100101!")
                 await yap("[An exquisite meal is brought before you.]")
-                await yap(`[The "${description}"]`)
-                const isYell = await whichWayWesternMan()
+                appearheavy.play()
+                const slip = document.createElement("img");
+                slip.src = "images/orderSlip.png";
+                slip.className = "overlay-img fade-in-center";
+                slip.style="width:10%; height:auto;"
+                document.querySelector(".align-overlay").appendChild(slip);
+                await sleep(4000);
+                await yap(`[Order Slip is handed to you.]`)
+                const isYell = await whichWayWesternMan(id, description, slip)
 
                 if(isYell) {
                     img.src = "images/bobbynervcrop.png";
