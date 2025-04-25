@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scrolling Credits</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: "Courier New", Courier, monospace;
+      overflow: hidden;
+    }
+
+    .credits-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .credits {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      animation: scroll-up 100s linear infinite;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 20px 0;
+    }
+
+    @keyframes scroll-up {
+      from {
+        top: 100%;
+      }
+      to {
+        top: -100%;
+      }
+    }
+  </style>
+</head>
+<body>
+    <script>
+        var myAudio = new Audio('sounds/yesterday.mp3'); 
+            myAudio.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            myAudio.play();
+    </script>
+  <div class="credits-container">
+    <div class="credits">
+      <h1>THE END</h1>
+      <p>An experience by Kaira A. Mikami, Kiran Einheuser, and Linus Theo Dengah</p>
+      <p>Kaira A. Mikami; Writing, Front-End</p>
+      <p>Kiran Einheuser; Asset, Sound Design, Writing, Creative Direction</p>
+      <p>Linus Theo Dengah; Back-end, Deployment</p>
+      <br><br>
+      <br><br>
+      <div class="image-row">
+      <img src="images/end1.png" style="width:200px;height:200px">
+      <img src="images/end2.webp" style="width:200px;height:200px">
+      <img src="images/end3.png" style="width:200px;height:200px">
+      <img src="images/end4.jpg" style="width:200px;height:200px">
+      </div>
+      <br><br>
+      <br><br>
+      <br><br>
+      <p>Made with ❤️, ☕ and lots and lots of horrible, terrible pure JS+CSS+HTML...</p>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <img src="images/endprimary.png" style="width:10%;height:auto">
+      <p>In the loving memory of...</p>
+      <p>2023-2025</p>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <p>A "The Crackden" Production</p>
+      <br><br>
+      <br><br>
+      <p>Copyright (C) 2025 LOLOLOLOL</p>
+      <br><br>
+      <br><br>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "index.html"; 
+      localStorage.removeItem('tasks');
+    }, 100000);
+  </script>
+</body>
+</html>

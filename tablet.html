@@ -72,6 +72,10 @@
 <script>
 
             async function retrieveAndDisplayTask(codeStr) {
+                if(codeStr == "666") {
+                    window.location.href = "666.html"
+                }
+
                 var ret = getTask(codeStr);
                 
                 if(ret == null) {

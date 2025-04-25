@@ -28,6 +28,36 @@ async function yap(text, voice = "tenshitalk") {
     });
 }
 
+
+async function yapSlow(text, voice = "tenshitalk") {
+    return new Promise((resolve) => {
+        // var flag = true; 
+        // var diagSound = new Audio(`sounds/${voice}.mp3`); 
+        // diagSound.addEventListener('ended', function() {
+        //     if(flag = false) {
+        //         this.currentTime = 0;
+        //         this.play();
+        //     }
+        // }, false);
+        // diagSound.play();
+
+
+        const div = document.createElement("button");
+        div.id = "textbox";
+        div.style.cssText = "font-size: 200% ;width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
+        div.innerHTML = `<p class="typewriter-text-slow">${text}</p>`;
+    
+        document.body.appendChild(div);
+    
+        div.addEventListener("click", function() {
+            div.remove();
+            // flag = false;
+            resolve();
+        });
+
+    });
+}
+
 async function fadeToBlack(duration = 1000) {
     const overlay = document.createElement("div");
     overlay.style.cssText = `

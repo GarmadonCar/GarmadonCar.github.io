@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>BIG BOY TODO APP!!!</title>
+        <link rel="stylesheet" href="bigboy.css">
+        <!--<script src="bigboy.js"></script>-->
+
+        <style>
+            body {
+
+                overflow: hidden; /* for testing */
+            }
+            .align-wrapper {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 1920 / 1080; /* Adjust to match your background image */
+                background-image: url("images/tenshidead.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                overflow: hidden;
+            }
+
+            /* Container for all overlays */
+            .align-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .overlay-img {
+                position: absolute;
+                top: 18.1%;   /* Adjust to your composition needs */
+                left: 30%;    /* Same */
+                width: 30%;
+                height: auto;
+            }
+
+            .choice-container {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10; /* above your images/text */
+            }
+
+            .choice-container button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background: white(0,0,0,0.7);
+            color: black;
+            border: solid gray 1px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            }
+
+            .choice-container button:hover {
+            background: lightgray;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="align-wrapper">
+            <div class="align-overlay">
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="yapper.js"></script>
+        <script type="text/javascript" src="bigboy.js"></script>
+        <script type="text/javascript" src="todo.js"></script>
+        <script type="text/javascript" src="generic-conversation/explainer-gc.js"></script>
+        <script type="module">
+            var myAudio = new Audio('sounds/goodending.mp3'); 
+            myAudio.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
+            }, false);
+            myAudio.play();
+
+            await fadeFromBlack(2000);
+
+            await yap("(Munashinge falls to the ground, rapidly losing blood.)")
+            await yap("(A velvety lake forms around him, pooling on the cheap flooring.)")
+            await yap("(It stains his uniform.)")
+            await yap("Munasinghe: Thank… you… finally… I can be… free… ")
+            await yap("(!?)")
+            await yap("Munasinghe: All this time, trapped in this pathetic excuse of a box.")
+            await yap("Munasinghe: An empty place really, fashioned from illusions.")
+            await yap("Munasinghe: Meaning bequeathed through the monotonous nature of futility and the like,")
+            await yap("Munasinghe: but they don’t want it to end, no, not when they hold such control.")
+            await yap("Munasinghe: Verily, you have liberated us all, I bestow my utmost gratitude.")
+            await yap("Munasinghe: Now go… return to your life… go do… what you set out <b>todo</b>…")
+            await yap("<i>???</i>")
+            await sleep(1000);
+                
+            await yap("...")
+            await sleep(1000)
+            await fadeToBlack(3000);
+            const wrapper = document.querySelector('.align-wrapper');
+            wrapper.style.backgroundImage = 'none';           // removes the image
+            wrapper.style.backgroundColor = 'black';          // sets solid black background
+            await sleep(2000)
+
+            await yap("Munasinghe: Ahh, finally… after all…")
+            await yap("Munasinghe: …")
+
+            await sleep(2000)
+
+            await yap("Spring returns to Heavens.")
+            await yap("For a moment, stars flicker to rest.")
+            await yap("Then again, the universe awakens anew.")
+            await sleep(3000)
+
+            await yapSlow("<b style='color:lightblue;'>天思は天国でしか自由になれない。</b>")
+                
+            await sleep(10000)
+
+            window.location.href = ("end.html"); 
+        </script>
+
+    </body>
+
+</html>

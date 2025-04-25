@@ -8,6 +8,15 @@
   animation: typing 3s steps(100, end);
 }
 
+.typewriter-text-slow {
+  display: inline-block;
+  color: #000;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  animation: typing 10s steps(20, end);
+}
+
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
