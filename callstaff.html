@@ -182,7 +182,6 @@
             //console.log("BEFORE");
             await sleep(1000);
             var rand = Math.floor(Math.random() * 2);
-            rand = 0
             console.log(rand)
 
             if(rand==0) {
@@ -202,9 +201,11 @@
                     await yap("Munasinghe: Dare I say a bold choice for only the most refined of palettes,")
                     await yap("Munasinghe: it shall be added to the menu immediately.")
                 } else {
+                    img.src = "images/tenshimadcrop.png";
                     await yap("Munasinghe: Dear customer, please refrain from calling the staff when you have no need.")
                     await yap("Munasinghe: Elsewise, you may come to find things that are…")
                     await yap("Munasinghe: ...")
+                    img.src = "images/tenshinervcrop.png";
                     await yap("Munasinghe: no, forget I said anything.")
                     await yap("Munasinghe: <i>失礼いたしました。<\i>")
 
@@ -219,7 +220,20 @@
                 document.querySelector(".align-overlay").appendChild(img);
 
                 await yap("01110111 01101000 01100001 01110100?")
-                whichWayWesternMan()
+                const wantsMenuItem = await whichWayWesternMan()
+
+                if(wantsMenuItem) {
+                    await yap("01101001 01110100 01100101 01101101?")
+                    await newOrderCreator();
+                    img.src = "images/bobbysmugcrop.png";
+                    await yap("01110011 01101001 01100011 01101011.")
+                } else {
+                    img.src = "images/bobbynervcrop.png";
+                    await yap("01100010 01110010 01110101 01101000…")
+
+                     
+                }
+
             }
             window.location.href = ("table.html"); 
 
