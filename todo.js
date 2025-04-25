@@ -1,17 +1,21 @@
 var tasklist = localStorage.getItem('tasks');
-if(tasklist==null){tasklist="ඞ001ඞPenisඞ"}
+if (tasklist == null) { tasklist = "ඞ001ඞPenisඞ" }
 
-String.prototype.replaceAt = function(startIndex, endIndex, replacement) {
-    return this.substring(0, index) + replacement + this.substring(endIndex);
+String.prototype.replaceAt = function (startIndex, endIndex, replacement) {
+  return this.substring(0, index) + replacement + this.substring(endIndex);
 }
 
-function saveTasks(){
+function saveTasks() {
   localStorage.setItem('tasks', tasklist);
+
+  console.log("Tasks Saved... DEBUG:")
+  console.log(getTasks())
 }
 
 // returns nill
 // creates a new task in storage
-function setTask(id, description){
+function setTask(id, description) {
+  console.log("New Task added..." + id + "ඞ" + description + "ඞ")
   tasklist += (id + "ඞ" + description + "ඞ");
 
   saveTasks();
@@ -20,17 +24,15 @@ function setTask(id, description){
 // returns Array of all id-description tuples
 
 function getTasks() {
-  var index = 0;
-  var tasks = [];
+  let tasks = [];
+  let parts = tasklist.split("ඞ");
 
-  var i = 0;
-  while (index < tasklist.length()) {
-    tasks[i] = new Array(2);
-    tasks[i][0] = tasklist.substring(index, index + 2);
-    tasks[i][1] = getTask(tasks[i][0]);
-
-    i++;
+  for (let i = 0; i < parts.length - 1; i += 2) {
+    let id = parts[i];
+    let description = parts[i + 1];
+    tasks.push([id, description]);
   }
+
   return tasks;
 }
 
@@ -40,7 +42,7 @@ function getTask(id) {
 
   var index = tasklist.indexOf(id);
 
-  if(index == -1){
+  if (index == -1) {
     return null;
   }
 
@@ -60,11 +62,11 @@ function generateID() {
   var id = Math.floor((Math.random() * 999) + 1);
   var textId = id.toString();
 
-  while (textId.length() != 3) {
+  while (textId.length != 3) {
     textId = "0" + textId;
   }
 
-  if (tasklist.includes(textId) || tasklist == "666"){
+  if (tasklist.includes(textId) || tasklist == "666") {
     return generateID();
   } else {
     return textId;
@@ -77,7 +79,7 @@ var i;
 function updateTask(id, description) {
   var index = tasklist.indexOf(id);
 
-  if(index == -1){
+  if (index == -1) {
     return;
   }
 
@@ -96,7 +98,7 @@ function updateTask(id, description) {
 function removeTask(id) {
   var index = tasklist.indexOf(id);
 
-  if(index == -1){
+  if (index == -1) {
     return;
   }
 
