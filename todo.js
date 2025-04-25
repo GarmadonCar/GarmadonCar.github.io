@@ -1,5 +1,5 @@
 var tasklist = localStorage.getItem('tasks');
-if (tasklist == null) { tasklist = "001ඞPenisඞ" }
+if (tasklist == null) { tasklist = "085ඞHamburger Plate with Rice Bar (Kiran Special)ඞ" }
 
 String.prototype.replaceAt = function (startIndex, endIndex, replacement) {
   return this.substring(0, startIndex) + replacement + this.substring(endIndex);
