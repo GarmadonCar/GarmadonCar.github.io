@@ -20,7 +20,7 @@ async function yap(text, voice = "tenshitalk") {
         document.body.appendChild(div);
     
         div.addEventListener("click", function() {
-
+            div.remove();
             // flag = false;
             resolve();
         });

@@ -65,12 +65,6 @@
             }, false);
             music.play();
 
-            const img = document.createElement("img");
-            img.src = "images/tenshicrop.png";
-            img.className = "overlay-img";
-
-            document.querySelector(".align-overlay").appendChild(img);
-
             await fadeFromBlack(2000);
 
             await sleep(3000);
@@ -86,7 +80,11 @@
 
             await fadeToBlack(500);
 
+            const img = document.createElement("img");
+            img.src = "images/tenshicrop.png";
+            img.className = "overlay-img";
 
+            document.querySelector(".align-overlay").appendChild(img);
 
             await fadeFromBlack(500);
 
