@@ -1,4 +1,5 @@
 var tasklist = localStorage.getItem('tasks');
+if(tasklist==null){tasklist="ඞ001ඞPenisඞ"}
 
 String.prototype.replaceAt = function(startIndex, endIndex, replacement) {
     return this.substring(0, index) + replacement + this.substring(endIndex);
@@ -36,6 +37,7 @@ function getTasks() {
 // returns the description of the given id
 var i;
 function getTask(id) {
+  
   var index = tasklist.indexOf(id);
 
   if(index == -1){
@@ -45,7 +47,9 @@ function getTask(id) {
   index += 4;
   i = index;
 
-  while (tasklist[index] != "ඞ") i++;
+  while (tasklist[i] != "ඞ") {
+    i++
+  };
 
   return tasklist.substring(index, i);
 }

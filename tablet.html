@@ -75,9 +75,23 @@
         <script type="text/javascript" src="yapper.js"></script>
         <script type="text/javascript" src="todo.js"></script>
 <script>
+
+            async function retrieveAndDisplayTask(codeStr) {
+                var ret = getTask(codeStr);
+                
+                if(ret == null) {
+                    document.getElementById("code-text").innerText = "INVL";
+                    await new Promise(resolve => setTimeout(resolve, 2000)); // wait 2 seconds
+                    console.log("woo!")
+                    return;
+                }
+                window.location.href = (`order.html?id=${codeStr}`);
+            }
             var garcarbeep = new Audio('sounds/garcarbeep.mp3');
             var code = Array(0);
+            var inputEnabled = true;
             function clickButton(event) {
+                if(!inputEnabled) {return;}
                 garcarbeep.currentTime=0;
                 garcarbeep.play();
                 console.log(code.length)
@@ -87,10 +101,16 @@
                     code.push(number);
                     if(code.length == 3) { 
                         console.log("FULL!")
+                        inputEnabled = false;
                         // TODO RETRIEVE TASK HERE
                         
-
-                        code = []
+                        retrieveAndDisplayTask(code.join("")).then(() => {
+                            code = [];
+                            document.getElementById("code-text").innerText = "";
+                            inputEnabled = true; // allow input again
+                        });
+                        return;
+                        
                     }
                 }     else if (id === "E") {
                     code.pop();
