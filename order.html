@@ -183,8 +183,37 @@
                     btnA.addEventListener('click', onA);
                     btnB.addEventListener('click', onB);
                     });
-            }
 
+
+            async function changeOrder(id) {
+                return new Promise(resolve => {
+                    const textbox = document.createElement("input");
+                    textbox.type = "text";
+                    textbox.id = "textbox";
+                    textbox.value = getTask(id); // Pre-fill with current description
+                    textbox.style.cssText = "font-size: 200%; width: 90%; height:10%; border-color: gray; background-color: white; border-radius: 0.5%; border-width: 0.5%; border: solid gray; position:absolute; top: 80%; left:5%; margin:0.5%";
+                    document.body.appendChild(textbox);
+                    textbox.focus();
+
+                    function cleanup() {
+                        textbox.remove();
+                        resolve();
+                    }
+
+                    function onEnter(event) {
+                        if (event.key === "Enter") {
+                            const newDesc = textbox.value.trim();
+                            if (newDesc.length > 0) {
+                                updateTask(id, newDesc);
+                                cleanup();
+                            }
+                        }
+                    }
+
+                    textbox.addEventListener("keydown", onEnter);
+                });
+            }
+            
 
 
             async function cooked() {

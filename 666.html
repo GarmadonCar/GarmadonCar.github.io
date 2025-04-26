@@ -166,7 +166,10 @@
                 if(shoot) {
                     const bang = new Audio("sounds/bang.mp3");
                     bang.play();
-                    await sleep(5000);
+                    await sleep(200);
+                    const body = new Audio("sounds/body.mp3");
+                    body.play();
+                    await sleep(4800);
                     window.location.href = ("mercy!.html"); 
                 } else {
                     const mercy = new Audio("sounds/mercy.mp3");
