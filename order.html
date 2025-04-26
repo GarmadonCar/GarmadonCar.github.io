@@ -244,8 +244,12 @@
                     await changeOrder(id);
                     await yap("Munasinghe: Very well, it shall be done. くそったれが...")
                 } else {
-                    burp.currentTime = 0;
-                    burp.play()
+                    const mercy1 = new Audio("sounds/nom.mp3");
+                    mercy1.play();
+                    await sleep(1000);
+                    const mercy2 = new Audio("sounds/burp.mp3");
+                    mercy2.play();
+                    await sleep(1000);
                     removeTask(id);
                     await yap("[You belch an unimaginable stench.]")
                 }
@@ -286,8 +290,12 @@
                     await yap("01100100 01101111 01101110 01100101…")
                 } else {
                     img.src = "images/bobbynervcrop.png";
-                    burp.currentTime = 0;
-                    burp.play()
+                    const mercy1 = new Audio("sounds/nom.mp3");
+                    mercy1.play();
+                    await sleep(1000);
+                    const mercy2 = new Audio("sounds/burp.mp3");
+                    mercy2.play();
+                    await sleep(1000);
                     removeTask(id);
                     await yap("[You belch an unimaginable stench.]")
                 }
