@@ -105,12 +105,12 @@ function removeTask(id) {
     return;
   }
 
-  index += 4;
-  i = index;
+  index;
+  i = index + 4;
 
   while (tasklist[i] != "ඞ") i++;
 
-  tasklist = tasklist.replaceAt(index, i, "");
+  tasklist = tasklist.replaceAt(index, i + 1, "");
 
   saveTasks();
 }
